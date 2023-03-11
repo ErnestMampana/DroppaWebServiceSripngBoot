@@ -3,6 +3,8 @@
  */
 package com.droppa.services.spring.droppaclone.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +19,6 @@ import com.droppa.services.spring.droppaclone.dto.CompanyDTO;
 import com.droppa.services.spring.droppaclone.models.Company;
 import com.droppa.services.spring.droppaclone.services.CompanyService;
 
-import jakarta.websocket.server.PathParam;
 
 /**
  * @author Ernest Mampana
@@ -43,11 +44,9 @@ public class CompanyController {
 		return new ResponseEntity<Company>(company,HttpStatus.OK);
 	}
 	
-//	@GET
-//	@Path("/viewallcompanies")
-//	public Response viewAllCompanies() {
-//		List<Company> company = companyService.viewAllCompanies();
-//		return Response.ok().entity(company).build();
-//	}
+	@GetMapping("/viewallcompanies")
+	public List<Company> viewAllCompanies() {
+		return companyService.viewAllCompanies();
+	}
 
 }

@@ -7,6 +7,7 @@ package com.droppa.services.spring.droppaclone.common;
  * @author Ernest Mampana
  *
  */
+@SuppressWarnings("serial")
 public class ClientException extends RuntimeException {
 
 	private int code;

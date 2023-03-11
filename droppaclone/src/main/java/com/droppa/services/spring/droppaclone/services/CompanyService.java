@@ -3,6 +3,9 @@
  */
 package com.droppa.services.spring.droppaclone.services;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,21 +17,21 @@ import com.droppa.services.spring.droppaclone.models.Person;
 import com.droppa.services.spring.droppaclone.models.UserAccount;
 import com.droppa.services.spring.droppaclone.repositories.CompanyRepository;
 
+import lombok.RequiredArgsConstructor;
+
 /**
  * @author Ernest Mampana
  *
  */
 
 @Service
+@RequiredArgsConstructor
 public class CompanyService {
 
-	@Autowired
 	private UserService userService;
 
-	@Autowired
 	private PartyService partyService;
 
-	@Autowired
 	private CompanyRepository companyRepository;
 
 	public Company createCompany(CompanyDTO companyDto) {
@@ -55,6 +58,15 @@ public class CompanyService {
 	}
 
 	public Company getCompanyByCompanyId(String companyId) {
-		return companyRepository.findByCompanyId(companyId).get();
+		Optional<Company> optionalCompany = companyRepository.findByCompanyId(companyId);
+		if (optionalCompany.isPresent()) {
+			return optionalCompany.get();
+		} else {
+			throw new ClientException("Company not found");
+		}
+	}
+
+	public List<Company> viewAllCompanies() {
+		return companyRepository.findAll();
 	}
 }

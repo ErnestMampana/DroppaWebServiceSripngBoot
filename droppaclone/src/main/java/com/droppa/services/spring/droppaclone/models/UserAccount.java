@@ -3,13 +3,16 @@ package com.droppa.services.spring.droppaclone.models;
 import com.droppa.services.spring.droppaclone.enums.AccountStatus;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
+import lombok.Data;
 
 @Entity
+@Data
 public class UserAccount {
 
 	@Id
@@ -20,6 +23,7 @@ public class UserAccount {
 	private Person person;
 	private boolean confirmed;
 	private int otp;
+	@Enumerated(EnumType.STRING)
 	private AccountStatus status;
 	private String password;
 	private String token;

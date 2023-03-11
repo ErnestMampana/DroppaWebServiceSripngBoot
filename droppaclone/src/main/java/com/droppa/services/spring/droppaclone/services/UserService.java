@@ -4,8 +4,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -51,7 +49,7 @@ public class UserService {
 
 		String token = partyService.generateToken();
 
-		Person owner = new Person(person.userName, person.surname, person.celphone, person.walletBalance, person.email);
+		Person owner = new Person(person.userName, person.surname, person.celphone, 00.0, person.email);
 
 		UserAccount acc = new UserAccount(owner.getEmail(), owner, false, otp, AccountStatus.AWAITING_CONFIRMATION,
 				person.password, token);
@@ -132,6 +130,26 @@ public class UserService {
 			}
 		}
 		return userAcc;
+	}
+
+	@Transactional
+	public UserAccount loadWallet(String username, double amount) {
+
+		UserAccount userAccount = getUserByEmail(username);
+		if (userAccount.getStatus().equals(AccountStatus.ACTIVE)) {
+			userAccount.getOwner().setWalletBalance(userAccount.getOwner().getWalletBalance() + amount);
+			return userAccount;
+		} else {
+			if (userAccount.getStatus().equals(AccountStatus.AWAITING_CONFIRMATION)) {
+				throw new ClientException("Please confirm your account first.");
+			} else if (userAccount.getStatus().equals(AccountStatus.AWAITING_PWD_RESET)) {
+				throw new ClientException("You haven't set confirmed your new password");
+			} else {
+				throw new ClientException(
+						"Your account has been suspended please contact Droppa Clone for re-activation.");
+			}
+		}
+
 	}
 
 }

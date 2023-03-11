@@ -3,8 +3,6 @@
  */
 package com.droppa.services.spring.droppaclone.models;
 
-import java.util.List;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;

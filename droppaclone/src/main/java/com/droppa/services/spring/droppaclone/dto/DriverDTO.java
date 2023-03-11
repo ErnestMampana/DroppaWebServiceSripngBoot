@@ -14,5 +14,5 @@ public class DriverDTO {
 
 	public String companyId;
 
-	public String vehicleId;
+	public String registration;
 }

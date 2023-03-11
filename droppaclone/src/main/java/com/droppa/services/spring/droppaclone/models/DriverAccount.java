@@ -1,7 +1,5 @@
 package com.droppa.services.spring.droppaclone.models;
 
-import java.util.Arrays;
-
 import com.droppa.services.spring.droppaclone.enums.AccountStatus;
 
 import jakarta.persistence.Entity;
@@ -19,6 +17,7 @@ public class DriverAccount {
 	private int id;
 	private String email;
 	private String password;
+	private boolean isConfirmed;
 	@OneToOne
 	private Vehicle vehicle;
 	@OneToOne
@@ -29,21 +28,12 @@ public class DriverAccount {
 		super();
 	}
 
-	public DriverAccount(String email, String password, Vehicle vehicle, VehicleDriver driver, AccountStatus status) {
-		super();
-		this.email = email;
-		this.password = password;
-		this.vehicle = vehicle;
-		this.driver = driver;
-		this.status = status;
-	}
-
-	public DriverAccount(int id, String email, String password, Vehicle vehicle, VehicleDriver driver,
+	public DriverAccount(String email, String password, boolean isConfirmed, Vehicle vehicle, VehicleDriver driver,
 			AccountStatus status) {
 		super();
-		this.id = id;
 		this.email = email;
 		this.password = password;
+		this.isConfirmed = isConfirmed;
 		this.vehicle = vehicle;
 		this.driver = driver;
 		this.status = status;
@@ -73,6 +63,14 @@ public class DriverAccount {
 		this.password = password;
 	}
 
+	public boolean isConfirmed() {
+		return isConfirmed;
+	}
+
+	public void setConfirmed(boolean isConfirmed) {
+		this.isConfirmed = isConfirmed;
+	}
+
 	public Vehicle getVehicle() {
 		return vehicle;
 	}
@@ -95,12 +93,6 @@ public class DriverAccount {
 
 	public void setStatus(AccountStatus status) {
 		this.status = status;
-	}
-
-	@Override
-	public String toString() {
-		return "DriverAccount [id=" + id + ", email=" + email + ", password=" + password + ", vehicle=" + vehicle
-				+ ", driver=" + driver + ", status=" + status + "]";
 	}
 
 }

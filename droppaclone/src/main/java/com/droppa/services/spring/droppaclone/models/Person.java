@@ -13,14 +13,14 @@ public class Person {
 	private String userName;
 	private String surname;
 	private String celphone;
-	private String walletBalance;
+	private double walletBalance;
 	private String email;
 
 	public Person() {
 		super();
 	}
 
-	public Person(int id, String userName, String surname, String celphone, String walletBalance, String email) {
+	public Person(int id, String userName, String surname, String celphone, double walletBalance, String email) {
 		super();
 		this.id = id;
 		this.userName = userName;
@@ -32,7 +32,7 @@ public class Person {
 	
 	
 
-	public Person(String userName, String surname, String celphone, String walletBalance, String email) {
+	public Person(String userName, String surname, String celphone, double walletBalance, String email) {
 		super();
 		this.userName = userName;
 		this.surname = surname;
@@ -81,11 +81,11 @@ public class Person {
 		this.celphone = celphone;
 	}
 
-	public String getWalletBalance() {
+	public double getWalletBalance() {
 		return walletBalance;
 	}
 
-	public void setWalletBalance(String walletBalance) {
+	public void setWalletBalance(double walletBalance) {
 		this.walletBalance = walletBalance;
 	}
 

@@ -20,7 +20,6 @@ import com.droppa.services.spring.droppaclone.models.UserAccount;
 import com.droppa.services.spring.droppaclone.services.UserService;
 
 
-
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -41,9 +40,10 @@ public class UserController {
 //	}
 //
 	@PutMapping("/email/confirmation/{email}")
-	public String confirmEmail(@PathVariable("email") String email, @RequestParam(required = true) int code) {
+	public ResponseEntity<String> confirmEmail(@PathVariable("email") String email,
+			@RequestParam(required = true) int code) {
 		String resp = userService.confirmEmail(email, code);
-		return resp;
+		return new ResponseEntity<String>(resp, HttpStatus.OK);
 	}
 
 	@GetMapping("/getuserbyemail/{email}")
@@ -54,8 +54,8 @@ public class UserController {
 
 	@PostMapping("/createuser")
 	public UserAccount createUser(@RequestBody PersonDTO person) {
-		userService.createUserAccount(person);
-		return new ResponseEntity<UserAccount>(HttpStatus.OK).getBody();
+		UserAccount userAcc = userService.createUserAccount(person);
+		return new ResponseEntity<UserAccount>(userAcc, HttpStatus.OK).getBody();
 	}
 
 	@GetMapping("/requestPasswordReset/{email}")
@@ -66,9 +66,16 @@ public class UserController {
 
 	@PutMapping("/resetPassword/{username}")
 	public ResponseEntity<UserAccount> resetPassword(@PathVariable("username") String username,
-			@RequestParam(required = true) int otp,@RequestParam(required = true) String password) {
-		UserAccount userAcc = userService.resetPassword(otp, username,password);
+			@RequestParam(required = true) int otp, @RequestParam(required = true) String password) {
+		UserAccount userAcc = userService.resetPassword(otp, username, password);
 		return new ResponseEntity<UserAccount>(userAcc, HttpStatus.OK);
+	}
+
+	@PutMapping("/loadwallet/{username}")
+	public ResponseEntity<UserAccount> loadWallet(@PathVariable("username") String username,
+			@RequestParam(required = true) double amount) {
+		UserAccount userAccount = userService.loadWallet(username, amount);
+		return new ResponseEntity<UserAccount>(userAccount,HttpStatus.OK);
 	}
 
 }

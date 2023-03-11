@@ -4,7 +4,6 @@
 package com.droppa.services.spring.droppaclone.models;
 
 import java.util.Arrays;
-import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
